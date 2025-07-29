@@ -160,6 +160,7 @@ vim.api.nvim_create_autocmd("PackChanged", {
     pattern = "*",
     callback = function()
         vim.cmd [[ Neorg sync-parsers ]]
+        vim.cmd [[ TSUpdate ]]
     end,
 })
 
