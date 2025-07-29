@@ -52,7 +52,7 @@ vim.o.wrap = false
 vim.o.number = true
 vim.o.hlsearch = true
 vim.o.expandtab = true
-vim.o.wrap = true
+vim.o.swapfile = false
 vim.o.splitbelow = true
 vim.o.splitright = true
 vim.o.shiftwidth = 4
@@ -194,15 +194,6 @@ vim.api.nvim_create_autocmd("BufWritePre", {
         vim.lsp.buf.format()
     end,
 })
-
-vim.api.nvim_create_autocmd("VimEnter", {
-    pattern = "*",
-    callback = function()
-        if vim.fn.argc() == 0 and vim.fn.filereadable(vim.fn.expand('~/.config/nvim/session.vim')) == 1 then
-            vim.cmd('source ~/.config/nvim/session.vim')
-        end
-    end,
-});
 
 vim.lsp.config("lua_ls", {
     settings = {
@@ -371,6 +362,7 @@ vim.keymap.set("n", "<leader>t", "<CMD>terminal<CR>a", { silent = true })
 vim.keymap.set("n", "<leader>g", "<CMD>Gedit :<CR>", { silent = true })
 vim.keymap.set("n", "<leader>ff", "<CMD>Telescope find_files<CR>", { silent = true })
 vim.keymap.set("n", "dd", "\"_dd", { silent = true })
+vim.keymap.set("n", "<leader>s", "<CMD>source ~/.config/nvim/session.vim<CR>", { silent = true })
 
 -- Telescope
 vim.keymap.set("n", "<leader>fg", "<CMD>Telescope live_grep<CR>", { silent = true })
