@@ -156,6 +156,12 @@ vim.lsp.config("lua_ls", {
     }
 })
 
+vim.api.nvim_create_autocmd("PackChanged", {
+    pattern = "*",
+    callback = function()
+        vim.cmd [[ Neorg sync-parsers ]]
+    end,
+})
 
 require("neorg").setup({
     load = {
