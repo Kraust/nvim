@@ -138,6 +138,15 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     end,
 })
 
+vim.api.nvim_create_autocmd("VimEnter", {
+    pattern = "*",
+    callback = function()
+        if vim.fn.argc() == 0 and vim.fn.filereadable(vim.fn.expand('~/.config/nvim/session.vim')) == 1 then
+            vim.cmd('source ~/.config/nvim/session.vim')
+        end
+    end,
+});
+
 vim.lsp.config("lua_ls", {
     settings = {
         Lua = {
