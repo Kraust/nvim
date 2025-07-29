@@ -35,6 +35,7 @@ vim.pack.add({
     "https://github.com/nvim-tree/nvim-web-devicons",
     "https://github.com/j-hui/fidget.nvim",
     "https://github.com/meatballs/vim-xonsh",
+    "https://github.com/nvim-lualine/lualine.nvim",
 
     -- Colorscheme
     "https://github.com/vague2k/vague.nvim"
@@ -58,9 +59,11 @@ vim.o.shiftwidth = 4
 vim.o.tabstop = 4
 vim.o.clipboard = "unnamedplus"
 vim.o.signcolumn = "yes"
-vim.o.list = true
 vim.opt.equalalways = false
 vim.o.colorcolumn = "80"
+vim.o.undofile = true
+vim.o.scrollback = 100000
+vim.o.list = true
 vim.opt.listchars = {
     tab = "» ", -- Tabs shown as a double right angle followed by a space
     trail = "•", -- Trailing spaces shown as a bullet
@@ -88,6 +91,60 @@ if vim.g.neovide then
 end
 
 
+require('lualine').setup({
+    options = {
+        icons_enabled = true,
+        theme = 'auto',
+        component_separators = { left = '', right = '' },
+        section_separators = { left = '', right = '' },
+        disabled_filetypes = {
+            statusline = {},
+            winbar = {},
+        },
+        ignore_focus = {},
+        always_divide_middle = true,
+        always_show_tabline = true,
+        globalstatus = false,
+        refresh = {
+            statusline = 1000,
+            tabline = 1000,
+            winbar = 1000,
+            refresh_time = 16, -- ~60fps
+            events = {
+                'WinEnter',
+                'BufEnter',
+                'BufWritePost',
+                'SessionLoadPost',
+                'FileChangedShellPost',
+                'VimResized',
+                'Filetype',
+                'CursorMoved',
+                'CursorMovedI',
+                'ModeChanged',
+            },
+        }
+    },
+    sections = {
+        lualine_a = { 'mode' },
+        lualine_b = { 'branch', 'diff', 'diagnostics' },
+        lualine_c = { 'filename' },
+        lualine_x = { 'lsp_status', 'fileformat', 'filetype' },
+        lualine_y = { 'searchcount' },
+        lualine_z = { 'location' }
+    },
+    inactive_sections = {
+        lualine_a = {},
+        lualine_b = { 'branch', 'diff', 'diagnostics' },
+        lualine_c = { 'filename' },
+        lualine_x = { 'lsp_status', 'fileformat', 'filetype' },
+        lualine_y = { 'searchcount' },
+        lualine_z = { 'location' }
+    },
+    tabline = {},
+    winbar = {},
+    inactive_winbar = {},
+    extensions = {}
+})
 require("vague").setup({
     transparent = true,
 });
