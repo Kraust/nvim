@@ -36,6 +36,7 @@ vim.pack.add({
     "https://github.com/j-hui/fidget.nvim",
     "https://github.com/meatballs/vim-xonsh",
     "https://github.com/nvim-lualine/lualine.nvim",
+    "https://github.com/stevearc/oil.nvim",
 
     -- Colorscheme
     "https://github.com/vague2k/vague.nvim"
@@ -265,6 +266,7 @@ require("markview").setup({
 
 require("fidget").setup({})
 require("search").setup({})
+require("oil").setup({})
 
 require("codecompanion").setup({
     opts = {
