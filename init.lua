@@ -59,6 +59,7 @@ vim.o.tabstop = 4
 vim.o.clipboard = "unnamedplus"
 vim.o.signcolumn = "yes"
 vim.o.list = true
+vim.opt.equalalways = false
 vim.o.colorcolumn = "80"
 vim.opt.listchars = {
     tab = "» ", -- Tabs shown as a double right angle followed by a space

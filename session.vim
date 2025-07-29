@@ -15,12 +15,14 @@ badd +1 term://~//306473:/home/kraust/.local/xonsh-env/xbin/xonsh
 badd +1 term://~//306649:/home/kraust/.local/xonsh-env/xbin/xonsh
 badd +1 term://~//306825:/home/kraust/.local/xonsh-env/xbin/xonsh
 badd +1 term://~//307001:/home/kraust/.local/xonsh-env/xbin/xonsh
-badd +16 ~/notes/index.norg
+badd +16 notes/index.norg
 badd +1 term://~//309413:/home/kraust/.local/xonsh-env/xbin/xonsh
 badd +1 term://~//309589:/home/kraust/.local/xonsh-env/xbin/xonsh
+badd +1 .config/nvim/session.vim
+badd +1 .config/nvim/commit
 argglobal
 %argdel
-edit ~/notes/index.norg
+edit notes/index.norg
 let s:save_splitbelow = &splitbelow
 let s:save_splitright = &splitright
 set splitbelow splitright
@@ -121,6 +123,7 @@ if bufexists(fnamemodify("term://~//306103:/home/kraust/.local/xonsh-env/xbin/xo
 if &buftype ==# 'terminal'
   silent file term://~//306103:/home/kraust/.local/xonsh-env/xbin/xonsh
 endif
+balt term://~//306103:/home/kraust/.local/xonsh-env/xbin/xonsh
 setlocal foldmethod=manual
 setlocal foldexpr=0
 setlocal foldmarker={{{,}}}
@@ -134,13 +137,14 @@ if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
 keepjumps 3
-normal! 0
+normal! 03|
 wincmd w
 argglobal
 if bufexists(fnamemodify("term://~//306281:/home/kraust/.local/xonsh-env/xbin/xonsh", ":p")) | buffer term://~//306281:/home/kraust/.local/xonsh-env/xbin/xonsh | else | edit term://~//306281:/home/kraust/.local/xonsh-env/xbin/xonsh | endif
 if &buftype ==# 'terminal'
   silent file term://~//306281:/home/kraust/.local/xonsh-env/xbin/xonsh
 endif
+balt term://~//306281:/home/kraust/.local/xonsh-env/xbin/xonsh
 setlocal foldmethod=manual
 setlocal foldexpr=0
 setlocal foldmarker={{{,}}}
@@ -149,11 +153,11 @@ setlocal foldlevel=0
 setlocal foldminlines=1
 setlocal foldnestmax=20
 setlocal foldenable
-let s:l = 3 - ((2 * winheight(0) + 10) / 20)
+let s:l = 10 - ((9 * winheight(0) + 10) / 20)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 3
+keepjumps 10
 normal! 0
 wincmd w
 argglobal
@@ -161,7 +165,7 @@ if bufexists(fnamemodify("term://~//309413:/home/kraust/.local/xonsh-env/xbin/xo
 if &buftype ==# 'terminal'
   silent file term://~//309413:/home/kraust/.local/xonsh-env/xbin/xonsh
 endif
-balt ~/notes/index.norg
+balt notes/index.norg
 setlocal foldmethod=manual
 setlocal foldexpr=0
 setlocal foldmarker={{{,}}}
@@ -170,11 +174,11 @@ setlocal foldlevel=0
 setlocal foldminlines=1
 setlocal foldnestmax=20
 setlocal foldenable
-let s:l = 3 - ((2 * winheight(0) + 10) / 20)
+let s:l = 8 - ((7 * winheight(0) + 10) / 20)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 3
+keepjumps 8
 normal! 0
 wincmd w
 argglobal
@@ -182,7 +186,7 @@ if bufexists(fnamemodify("term://~//309589:/home/kraust/.local/xonsh-env/xbin/xo
 if &buftype ==# 'terminal'
   silent file term://~//309589:/home/kraust/.local/xonsh-env/xbin/xonsh
 endif
-balt ~/notes/index.norg
+balt notes/index.norg
 setlocal foldmethod=manual
 setlocal foldexpr=0
 setlocal foldmarker={{{,}}}
@@ -191,11 +195,11 @@ setlocal foldlevel=0
 setlocal foldminlines=1
 setlocal foldnestmax=20
 setlocal foldenable
-let s:l = 3 - ((2 * winheight(0) + 10) / 20)
+let s:l = 9 - ((8 * winheight(0) + 10) / 20)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 3
+keepjumps 9
 normal! 0
 wincmd w
 argglobal
@@ -207,6 +211,8 @@ setlocal foldlevel=2
 setlocal foldminlines=1
 setlocal foldnestmax=20
 setlocal foldenable
+3
+sil! normal! zo
 let s:l = 16 - ((15 * winheight(0) + 34) / 68)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
@@ -216,7 +222,7 @@ normal! 0
 wincmd w
 argglobal
 enew
-balt ~/notes/index.norg
+balt notes/index.norg
 setlocal foldmethod=manual
 setlocal foldexpr=0
 setlocal foldmarker={{{,}}}
@@ -228,7 +234,7 @@ setlocal foldenable
 wincmd w
 argglobal
 enew
-balt ~/notes/index.norg
+balt notes/index.norg
 setlocal foldmethod=manual
 setlocal foldexpr=0
 setlocal foldmarker={{{,}}}
@@ -240,7 +246,7 @@ setlocal foldenable
 wincmd w
 argglobal
 enew
-balt ~/notes/index.norg
+balt notes/index.norg
 setlocal foldmethod=manual
 setlocal foldexpr=0
 setlocal foldmarker={{{,}}}
@@ -252,7 +258,7 @@ setlocal foldenable
 wincmd w
 argglobal
 enew
-balt ~/notes/index.norg
+balt notes/index.norg
 setlocal foldmethod=manual
 setlocal foldexpr=0
 setlocal foldmarker={{{,}}}
@@ -264,7 +270,7 @@ setlocal foldenable
 wincmd w
 argglobal
 enew
-balt ~/notes/index.norg
+balt notes/index.norg
 setlocal foldmethod=manual
 setlocal foldexpr=0
 setlocal foldmarker={{{,}}}
@@ -276,7 +282,7 @@ setlocal foldenable
 wincmd w
 argglobal
 enew
-balt ~/notes/index.norg
+balt notes/index.norg
 setlocal foldmethod=manual
 setlocal foldexpr=0
 setlocal foldmarker={{{,}}}
@@ -288,7 +294,7 @@ setlocal foldenable
 wincmd w
 argglobal
 enew
-balt ~/notes/index.norg
+balt notes/index.norg
 setlocal foldmethod=manual
 setlocal foldexpr=0
 setlocal foldmarker={{{,}}}
@@ -303,6 +309,7 @@ if bufexists(fnamemodify("term://~//306473:/home/kraust/.local/xonsh-env/xbin/xo
 if &buftype ==# 'terminal'
   silent file term://~//306473:/home/kraust/.local/xonsh-env/xbin/xonsh
 endif
+balt term://~//306473:/home/kraust/.local/xonsh-env/xbin/xonsh
 setlocal foldmethod=manual
 setlocal foldexpr=0
 setlocal foldmarker={{{,}}}
@@ -311,18 +318,19 @@ setlocal foldlevel=0
 setlocal foldminlines=1
 setlocal foldnestmax=20
 setlocal foldenable
-let s:l = 3 - ((2 * winheight(0) + 10) / 20)
+let s:l = 23 - ((2 * winheight(0) + 10) / 20)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 3
-normal! 0
+keepjumps 23
+normal! 03|
 wincmd w
 argglobal
 if bufexists(fnamemodify("term://~//306825:/home/kraust/.local/xonsh-env/xbin/xonsh", ":p")) | buffer term://~//306825:/home/kraust/.local/xonsh-env/xbin/xonsh | else | edit term://~//306825:/home/kraust/.local/xonsh-env/xbin/xonsh | endif
 if &buftype ==# 'terminal'
   silent file term://~//306825:/home/kraust/.local/xonsh-env/xbin/xonsh
 endif
+balt term://~//306825:/home/kraust/.local/xonsh-env/xbin/xonsh
 setlocal foldmethod=manual
 setlocal foldexpr=0
 setlocal foldmarker={{{,}}}
@@ -331,11 +339,11 @@ setlocal foldlevel=0
 setlocal foldminlines=1
 setlocal foldnestmax=20
 setlocal foldenable
-let s:l = 3 - ((2 * winheight(0) + 10) / 20)
+let s:l = 17 - ((16 * winheight(0) + 10) / 20)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 3
+keepjumps 17
 normal! 0
 wincmd w
 argglobal
@@ -343,6 +351,7 @@ if bufexists(fnamemodify("term://~//306649:/home/kraust/.local/xonsh-env/xbin/xo
 if &buftype ==# 'terminal'
   silent file term://~//306649:/home/kraust/.local/xonsh-env/xbin/xonsh
 endif
+balt term://~//306649:/home/kraust/.local/xonsh-env/xbin/xonsh
 setlocal foldmethod=manual
 setlocal foldexpr=0
 setlocal foldmarker={{{,}}}
@@ -351,11 +360,11 @@ setlocal foldlevel=0
 setlocal foldminlines=1
 setlocal foldnestmax=20
 setlocal foldenable
-let s:l = 3 - ((2 * winheight(0) + 10) / 20)
+let s:l = 8 - ((7 * winheight(0) + 10) / 20)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 3
+keepjumps 8
 normal! 0
 wincmd w
 argglobal
@@ -363,6 +372,7 @@ if bufexists(fnamemodify("term://~//307001:/home/kraust/.local/xonsh-env/xbin/xo
 if &buftype ==# 'terminal'
   silent file term://~//307001:/home/kraust/.local/xonsh-env/xbin/xonsh
 endif
+balt term://~//307001:/home/kraust/.local/xonsh-env/xbin/xonsh
 setlocal foldmethod=manual
 setlocal foldexpr=0
 setlocal foldmarker={{{,}}}
@@ -371,14 +381,14 @@ setlocal foldlevel=0
 setlocal foldminlines=1
 setlocal foldnestmax=20
 setlocal foldenable
-let s:l = 3 - ((2 * winheight(0) + 10) / 20)
+let s:l = 9 - ((5 * winheight(0) + 10) / 20)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 3
+keepjumps 9
 normal! 0
 wincmd w
-5wincmd w
+6wincmd w
 exe '1resize ' . ((&lines * 20 + 77) / 154)
 exe 'vert 1resize ' . ((&columns * 359 + 360) / 720)
 exe '2resize ' . ((&lines * 20 + 77) / 154)
