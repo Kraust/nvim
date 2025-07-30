@@ -73,23 +73,21 @@ vim.opt.listchars = {
 }
 
 
-if vim.g.neovide then
-    vim.g.neovide_scale_factor = 1.0
-    vim.g.neovide_padding_top = 0
-    vim.g.neovide_padding_bottom = 0
-    vim.g.neovide_padding_right = 0
-    vim.g.neovide_padding_left = 0
-    vim.g.neovide_opacity = 0.5
-    vim.g.neovide_floating_shadow = false
-    vim.g.neovide_position_animation_length = 0
-    vim.g.neovide_scroll_animation_length = 0
-    vim.g.neovide_scroll_animation_far_lines = 0
-    vim.g.neovide_remember_window_size = true
-    vim.g.neovide_cursor_animation_length = 0
-    vim.g.neovide_cursor_short_animation_length = 0
-    vim.g.neovide_cursor_trail_size = 0
-    vim.g.neovide_cursor_vfx_mode = ""
-end
+vim.g.neovide_scale_factor = 1.0
+vim.g.neovide_padding_top = 0
+vim.g.neovide_padding_bottom = 0
+vim.g.neovide_padding_right = 0
+vim.g.neovide_padding_left = 0
+vim.g.neovide_opacity = 0.5
+vim.g.neovide_floating_shadow = false
+vim.g.neovide_position_animation_length = 0
+vim.g.neovide_scroll_animation_length = 0
+vim.g.neovide_scroll_animation_far_lines = 0
+vim.g.neovide_remember_window_size = true
+vim.g.neovide_cursor_animation_length = 0
+vim.g.neovide_cursor_short_animation_length = 0
+vim.g.neovide_cursor_trail_size = 0
+vim.g.neovide_cursor_vfx_mode = ""
 
 
 require('lualine').setup({
@@ -360,7 +358,7 @@ require("codecompanion").setup({
     },
 })
 
-vim.keymap.set("n", "<leader>t", "<CMD>terminal<CR>a", { silent = true })
+vim.keymap.set("n", "<leader>t", "<CMD>terminal<CR>", { silent = true })
 vim.keymap.set("n", "<leader>g", "<CMD>Gedit :<CR>", { silent = true })
 vim.keymap.set("n", "<leader>ff", "<CMD>Telescope find_files<CR>", { silent = true })
 vim.keymap.set("n", "dd", "\"_dd", { silent = true })
@@ -374,4 +372,4 @@ vim.keymap.set("n", "<leader>fa", "<CMD>Telescope live_grep search_dirs={'~/note
 vim.keymap.set("n", "<leader>qq", "<CMD>Neorg index<CR>", { silent = true })
 vim.keymap.set("n", "<leader>qQ", "<CMD>Neorg journal today<CR>", { silent = true })
 
-vim.keymap.set("t", "<esc><esc>", "<C-\\><C-n><C-w>h", { silent = true })
+vim.keymap.set("t", "<esc><esc>", "<C-\\><C-n>", { silent = true })
