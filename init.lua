@@ -65,6 +65,8 @@ vim.o.colorcolumn = "80"
 vim.o.undofile = true
 vim.o.scrollback = 100000
 vim.o.list = true
+vim.o.cmdheight = 2
+vim.opt.shortmess:append("cIWA")
 vim.opt.listchars = {
     tab = "» ", -- Tabs shown as a double right angle followed by a space
     trail = "•", -- Trailing spaces shown as a bullet
