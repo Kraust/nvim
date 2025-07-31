@@ -37,6 +37,7 @@ vim.pack.add({
     "https://github.com/meatballs/vim-xonsh",
     "https://github.com/nvim-lualine/lualine.nvim",
     "https://github.com/stevearc/oil.nvim",
+    "https://github.com/ahmedkhalf/project.nvim",
 
     -- Colorscheme
     "https://github.com/vague2k/vague.nvim"
@@ -201,6 +202,26 @@ vim.lsp.config("lua_ls", {
                 globals = { "vim" } }
         }
     }
+})
+
+local function compile_commands_dir(root_dir)
+    local uname = vim.loop.os_uname()
+    if uname == "Windows_NT" then
+        return root_dir .. "/build-Win10-x64-RelWithDebInfo"
+    end
+    return root_dir .. "/build-linux-x86_64-RelWithDebInfo"
+end
+
+vim.lsp.config("clangd", {
+    cmd = function(dispatchers, config)
+        return vim.lsp.rpc.start(
+            {
+                "clangd",
+                "--compile-commands-dir=" .. compile_commands_dir(config.root_dir),
+            },
+            dispatchers
+        )
+    end,
 })
 
 vim.api.nvim_create_autocmd("PackChanged", {
@@ -467,6 +488,47 @@ require("codecompanion").setup({
             },
         },
     },
+})
+
+require("project_nvim").setup({
+    -- Manual mode doesn't automatically change your root directory, so you have
+    -- the option to manually do so using `:ProjectRoot` command.
+    manual_mode = false,
+
+    -- Methods of detecting the root directory. **"lsp"** uses the native neovim
+    -- lsp, while **"pattern"** uses vim-rooter like glob pattern matching. Here
+    -- order matters: if one is not detected, the other is used as fallback. You
+    -- can also delete or rearangne the detection methods.
+    detection_methods = { "lsp", "pattern" },
+
+    -- All the patterns used to detect root dir, when **"pattern"** is in
+    -- detection_methods
+    patterns = { ".git", "_darcs", ".hg", ".bzr", ".svn", "Makefile", "package.json" },
+
+    -- Table of lsp clients to ignore by name
+    -- eg: { "efm", ... }
+    ignore_lsp = {},
+
+    -- Don't calculate root dir on specific directories
+    -- Ex: { "~/.cargo/*", ... }
+    exclude_dirs = {},
+
+    -- Show hidden files in telescope
+    show_hidden = true,
+
+    -- When set to false, you will get a message when project.nvim changes your
+    -- directory.
+    silent_chdir = true,
+
+    -- What scope to change the directory, valid options are
+    -- * global (default)
+    -- * tab
+    -- * win
+    scope_chdir = 'win',
+
+    -- Path where project.nvim will store the project history for use in
+    -- telescope
+    datapath = vim.fn.stdpath("data"),
 })
 
 vim.keymap.set("n", "<leader>t", "<CMD>terminal<CR>", { silent = true })
