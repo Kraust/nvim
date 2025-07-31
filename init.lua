@@ -28,7 +28,6 @@ vim.pack.add({
 
     "https://github.com/nvim-treesitter/nvim-treesitter",
     "https://github.com/tpope/vim-fugitive",
-    "https://github.com/MeanderingProgrammer/render-markdown.nvim",
     "https://github.com/OXY2DEV/markview.nvim",
     "https://github.com/ojroques/nvim-bufdel",
     "https://github.com/lambdalisue/vim-suda",
@@ -69,6 +68,7 @@ vim.o.undofile = true
 vim.o.scrollback = 100000
 vim.opt.completeopt = { "menuone", "noinsert", "noselect" }
 vim.opt.shortmess:append "c"
+vim.opt.foldlevel = 99
 vim.o.list = true
 vim.opt.listchars = {
     tab = "» ", -- Tabs shown as a double right angle followed by a space
@@ -718,6 +718,7 @@ vim.keymap.set("n", "<leader>g", "<CMD>Gedit :<CR>", { silent = true })
 vim.keymap.set("n", "<leader>ff", "<CMD>Telescope find_files<CR>", { silent = true })
 vim.keymap.set("n", "dd", "\"_dd", { silent = true })
 vim.keymap.set("n", "<leader>s", "<CMD>source ~/.config/nvim/session.vim<CR>", { silent = true })
+vim.keymap.set("n", "<leader>c", "<CMD>let @+ = expand('%:p')<CR>", { silent = true })
 
 -- Telescope
 vim.keymap.set("n", "<leader>fg", "<CMD>Telescope live_grep<CR>", { silent = true })
