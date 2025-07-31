@@ -39,6 +39,7 @@ vim.pack.add({
     "https://github.com/stevearc/oil.nvim",
     "https://github.com/ahmedkhalf/project.nvim",
     "https://github.com/rachartier/tiny-inline-diagnostic.nvim",
+    "https://github.com/brianaung/compl.nvim",
 
     -- Colorscheme
     "https://github.com/vague2k/vague.nvim"
@@ -66,6 +67,8 @@ vim.opt.equalalways = false
 vim.o.colorcolumn = "80"
 vim.o.undofile = true
 vim.o.scrollback = 100000
+vim.opt.completeopt = { "menuone", "noinsert", "noselect" }
+vim.opt.shortmess:append "c"
 vim.o.list = true
 vim.opt.listchars = {
     tab = "» ", -- Tabs shown as a double right angle followed by a space
@@ -146,6 +149,7 @@ require('lualine').setup({
     inactive_winbar = {},
     extensions = {}
 })
+
 require("vague").setup({
     transparent = true,
 });
@@ -158,7 +162,6 @@ require("nvim-treesitter.configs").setup({
         enable = true,
     }
 })
-
 
 local language_servers = {
     "clangd",
@@ -189,6 +192,14 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     pattern = "*",
     callback = function()
         vim.lsp.buf.format()
+    end,
+})
+
+vim.api.nvim_create_autocmd('LspAttach', {
+    group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+    callback = function(ev)
+        local opts = { buffer = ev.buf }
+        vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
     end,
 })
 
@@ -669,6 +680,38 @@ require("tiny-inline-diagnostic").setup({
     },
     disabled_ft = {} -- List of filetypes to disable the plugin
 })
+
+require("compl").setup({
+    completion = {
+        fuzzy = false,
+        timeout = 100,
+    },
+    info = {
+        enable = true,
+        timeout = 100,
+    },
+    snippet = {
+        enable = false,
+        paths = {},
+    }
+})
+
+
+vim.keymap.set("i", "<CR>", function()
+    if vim.fn.complete_info()["selected"] ~= -1 then return "<C-y>" end
+    if vim.fn.pumvisible() ~= 0 then return "<C-e><CR>" end
+    return "<CR>"
+end, { expr = true })
+
+vim.keymap.set("i", "<Tab>", function()
+    if vim.fn.pumvisible() ~= 0 then return "<C-n>" end
+    return "<Tab>"
+end, { expr = true })
+
+vim.keymap.set("i", "<S-Tab>", function()
+    if vim.fn.pumvisible() ~= 0 then return "<C-p>" end
+    return "<S-Tab>"
+end, { expr = true })
 
 vim.keymap.set("n", "<leader>t", "<CMD>terminal<CR>", { silent = true })
 vim.keymap.set("n", "<leader>g", "<CMD>Gedit :<CR>", { silent = true })
