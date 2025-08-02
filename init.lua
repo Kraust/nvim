@@ -39,6 +39,7 @@ vim.pack.add({
     "https://github.com/ahmedkhalf/project.nvim",
     "https://github.com/rachartier/tiny-inline-diagnostic.nvim",
     "https://github.com/brianaung/compl.nvim",
+    "https://github.com/alex-popov-tech/store.nvim",
 
     -- Colorscheme
     "https://github.com/vague2k/vague.nvim"
@@ -50,8 +51,10 @@ vim.g.current_chat_model = "qwen/qwen3-coder:free"
 
 
 vim.o.guifont = "IosevkaTermSlab NF,Noto Color Emoji:h8"
+vim.o.termguicolors = true
 vim.o.linespace = 0
 vim.o.wrap = false
+vim.o.spell = true
 vim.o.number = true
 vim.o.hlsearch = true
 vim.o.expandtab = true
