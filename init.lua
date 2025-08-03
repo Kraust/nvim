@@ -192,6 +192,7 @@ local language_servers = {
 require("mason").setup()
 require("mason-lspconfig").setup({
     automatic_enable = language_servers,
+    -- NOTE: This only works in a non-headless context!
     ensure_installed = language_servers,
 })
 
@@ -551,6 +552,10 @@ require("project_nvim").setup({
     -- Path where project.nvim will store the project history for use in
     -- telescope
     datapath = vim.fn.stdpath("data"),
+})
+
+vim.diagnostic.config({
+    virtual_text = false
 })
 
 require("tiny-inline-diagnostic").setup({
