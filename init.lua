@@ -565,8 +565,8 @@ require("tiny-inline-diagnostic").setup({
     -- "ghost", "simple", "nonerdfont", "amongus"
     preset = "simple",
 
-    transparent_bg = true,         -- Set the background of the diagnostic to transparent
-    transparent_cursorline = true, -- Set the background of the cursorline to transparent (only one the first diagnostic)
+    transparent_bg = false,         -- Set the background of the diagnostic to transparent
+    transparent_cursorline = false, -- Set the background of the cursorline to transparent (only one the first diagnostic)
 
     hi = {
         error = "DiagnosticError", -- Highlight group for error messages
@@ -592,7 +592,7 @@ require("tiny-inline-diagnostic").setup({
         },
 
         -- Use icons defined in the diagnostic configuration
-        use_icons_from_diagnostic = true,
+        use_icons_from_diagnostic = false,
 
         -- Set the arrow icon to the same color as the first diagnostic severity
         set_arrow_to_diag_color = false,
@@ -628,7 +628,7 @@ require("tiny-inline-diagnostic").setup({
             always_show = true,
 
             -- Trim whitespaces from the start/end of each line
-            trim_whitespaces = true,
+            trim_whitespaces = false,
 
             -- Replace tabs with spaces in multiline diagnostics
             tabstop = 4,
