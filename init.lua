@@ -59,7 +59,6 @@ vim.o.guifont = "IosevkaTermSlab NF,Noto Color Emoji:h8"
 vim.o.termguicolors = true
 vim.o.linespace = 0
 vim.o.wrap = false
-vim.o.spell = true
 vim.o.number = true
 vim.o.hlsearch = true
 vim.o.expandtab = true
@@ -199,7 +198,6 @@ require("mason-lspconfig").setup({
 local null_ls = require("null-ls")
 null_ls.setup({
     sources = {
-        null_ls.builtins.formatting.shellharden,
         null_ls.builtins.formatting.shfmt
     }
 })
