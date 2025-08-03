@@ -164,7 +164,7 @@ require("vague").setup({
 vim.cmd [[colorscheme vague]]
 
 require("nvim-treesitter.configs").setup({
-    ensure_installed = "maintained",
+    ensure_installed = {},
     ignore_install = { "ipkg" }, -- Failed to install.
     highlight = {
         enable = true,
