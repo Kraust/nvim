@@ -11,6 +11,8 @@ vim.pack.add({
     "https://github.com/mason-org/mason.nvim",
     "https://github.com/mason-org/mason-lspconfig.nvim",
     "https://github.com/neovim/nvim-lspconfig",
+    "https://github.com/nvimtools/none-ls.nvim",
+    "https://github.com/jay-babu/mason-null-ls.nvim",
 
     -- Neorg
     "https://github.com/nvim-neorg/neorg",
@@ -40,6 +42,9 @@ vim.pack.add({
     "https://github.com/rachartier/tiny-inline-diagnostic.nvim",
     "https://github.com/brianaung/compl.nvim",
     "https://github.com/alex-popov-tech/store.nvim",
+
+    -- Watch these projects
+    -- "https://github.com/brianhuster/unnest.nvim.git",
 
     -- Colorscheme
     "https://github.com/vague2k/vague.nvim"
@@ -189,6 +194,14 @@ require("mason").setup()
 require("mason-lspconfig").setup({
     automatic_enable = language_servers,
     ensure_installed = language_servers,
+})
+
+local null_ls = require("null-ls")
+null_ls.setup({
+    sources = {
+        null_ls.builtins.formatting.shellharden,
+        null_ls.builtins.formatting.shfmt
+    }
 })
 
 vim.api.nvim_create_autocmd("BufWritePre", {
