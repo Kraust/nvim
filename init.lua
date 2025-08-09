@@ -15,8 +15,9 @@ vim.pack.add({
     "https://github.com/jay-babu/mason-null-ls.nvim",
 
     -- CodeCompanion
+    "https://github.com/olimorris/codecompanion.nvim",
     "https://github.com/ravitemer/codecompanion-history.nvim",
-    { src = "https://github.com/Kraust/codecompanion.nvim", version = "topic/gitlab_duo", },
+    { src = "https://github.com/Kraust/codecompanion-gitlab.nvim", version = "next" },
     "https://github.com/nvim-treesitter/nvim-treesitter",
     "https://github.com/tpope/vim-fugitive",
     "https://github.com/OXY2DEV/markview.nvim",
@@ -369,7 +370,6 @@ require("oil").setup({})
 require("codecompanion").setup({
     opts = {
         language = "English",
-        system_prompt = "",
     },
     strategies = {
         chat = {
@@ -393,6 +393,11 @@ require("codecompanion").setup({
         inline = {
             adapter = "gitlab_duo",
         },
+    },
+    adapters = {
+        gitlab_duo = function()
+            return require("codecompanion-gitlab.adapters.gitlab_duo")
+        end,
     },
     display = {
         diff = {
