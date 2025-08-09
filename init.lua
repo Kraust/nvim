@@ -14,20 +14,9 @@ vim.pack.add({
     "https://github.com/nvimtools/none-ls.nvim",
     "https://github.com/jay-babu/mason-null-ls.nvim",
 
-    -- Neorg
-    "https://github.com/nvim-neorg/neorg",
-    "https://github.com/pysan3/pathlib.nvim",
-    "https://github.com/nvim-neorg/lua-utils.nvim",
-    "https://github.com/nvim-neotest/nvim-nio",
-    "https://github.com/nvim-neorg/neorg-telescope",
-    "https://github.com/L3MON4D3/LuaSnip",
-    "https://github.com/pysan3/neorg-templates",
-    "https://github.com/bottd/neorg-worklog",
-
     -- CodeCompanion
     "https://github.com/ravitemer/codecompanion-history.nvim",
-    "https://github.com/olimorris/codecompanion.nvim",
-
+    { src = "https://github.com/Kraust/codecompanion.nvim", version = "topic/gitlab_duo", },
     "https://github.com/nvim-treesitter/nvim-treesitter",
     "https://github.com/tpope/vim-fugitive",
     "https://github.com/OXY2DEV/markview.nvim",
@@ -52,7 +41,6 @@ vim.pack.add({
 
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
-vim.g.current_chat_model = "qwen/qwen3-coder:free"
 
 
 vim.o.guifont = "IosevkaTermSlab NF,Noto Color Emoji:h8"
@@ -250,54 +238,9 @@ vim.lsp.config("clangd", {
 vim.api.nvim_create_autocmd("PackChanged", {
     pattern = "*",
     callback = function()
-        vim.cmd [[ Neorg sync-parsers ]]
         vim.cmd [[ TSUpdate ]]
     end,
 })
-
-require("neorg").setup({
-    load = {
-        ["core.defaults"] = {},
-        ["core.concealer"] = {},
-        ["core.dirman"] = {
-            config = {
-                workspaces = {
-                    notes = "~/notes",
-                },
-                default_workspace = "notes",
-            },
-        },
-        ["core.integrations.telescope"] = {
-            config = {
-                insert_file_link = {
-                    -- Whether to show the title preview in telescope. Affects performance with a large
-                    -- number of files.
-                    show_title_preview = true,
-                },
-            }
-        },
-        ["external.templates"] = {
-            -- templates_dir = vim.fn.stdpath("config") .. "/templates/norg",
-            -- default_subcommand = "add", -- or "fload", "load"
-            -- keywords = { -- Add your own keywords.
-            --   EXAMPLE_KEYWORD = function ()
-            --     return require("luasnip").insert_node(1, "default text blah blah")
-            --   end,
-            -- },
-            -- snippets_overwrite = {},
-        },
-        ["external.worklog"] = {
-            -- default config
-            config = {
-                -- (Optional) Title for worklog in journal
-                heading = "Worklog",
-                -- (Optional) Title for "default" workspace
-                default_workspace_title = "default"
-            }
-        },
-    },
-})
-
 
 require("markview").setup({
     preview = {
@@ -424,10 +367,11 @@ require("oil").setup({})
 require("codecompanion").setup({
     opts = {
         language = "English",
+        -- system_prompt = "",
     },
     strategies = {
         chat = {
-            adapter = "openrouter",
+            adapter = "gitlab_duo",
             roles = {
                 llm = function(adapter)
                     return "CodeCompanion (" .. adapter.formatted_name .. ")"
@@ -439,31 +383,14 @@ require("codecompanion").setup({
                     modes = { n = "<CR>" },
                     description = "Submit",
                     callback = function(chat)
-                        chat:apply_model(vim.g.current_chat_model)
                         chat:submit()
                     end,
                 },
             },
         },
         inline = {
-            adapter = "openrouter",
+            adapter = "gitlab_duo",
         },
-    },
-    adapters = {
-        openrouter = function()
-            return require("codecompanion.adapters").extend("openai_compatible", {
-                env = {
-                    url = "https://openrouter.ai/api",
-                    api_key = "CODE_COMPANION_KEY",
-                    chat_url = "/v1/chat/completions",
-                },
-                schema = {
-                    model = {
-                        default = vim.g.current_chat_model,
-                    },
-                },
-            })
-        end,
     },
     display = {
         diff = {
@@ -742,9 +669,5 @@ vim.keymap.set("n", "<leader>c", "<CMD>let @+ = expand('%:p')<CR>", { silent = t
 -- Telescope
 vim.keymap.set("n", "<leader>fg", "<CMD>Telescope live_grep<CR>", { silent = true })
 vim.keymap.set("n", "<leader>fa", "<CMD>Telescope live_grep search_dirs={'~/notes'}<CR>", { silent = true })
-
--- Neorg
-vim.keymap.set("n", "<leader>qq", "<CMD>Neorg index<CR>", { silent = true })
-vim.keymap.set("n", "<leader>qQ", "<CMD>Neorg journal today<CR>", { silent = true })
 
 vim.keymap.set("t", "<esc><esc>", "<C-\\><C-n>", { silent = true })
