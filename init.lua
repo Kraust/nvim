@@ -369,7 +369,7 @@ require("oil").setup({})
 require("codecompanion").setup({
     opts = {
         language = "English",
-        -- system_prompt = "",
+        system_prompt = "",
     },
     strategies = {
         chat = {
