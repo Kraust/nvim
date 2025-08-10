@@ -734,4 +734,5 @@ vim.keymap.set("n", "<leader>fg", "<CMD>Telescope live_grep<CR>", { silent = tru
 vim.keymap.set("n", "<leader>fa", "<CMD>Telescope live_grep search_dirs={'~/notes'}<CR>", { silent = true })
 
 vim.keymap.set("n", "<leader>q", "<CMD>e ~/notes/index.md<CR>", { silent = true })
+vim.keymap.set("n", "<leader>Q", "<CMD>e ~/notes/scratch.md<CR>", { silent = true })
 vim.keymap.set("t", "<esc><esc>", "<C-\\><C-n>", { silent = true })
