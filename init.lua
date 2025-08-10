@@ -175,6 +175,7 @@ local language_servers = {
     "groovyls",
     "java_language_server",
     "jsonls",
+    "marksman",
     "templ",
     "yamlls",
 }
@@ -732,4 +733,5 @@ vim.keymap.set("n", "<leader>c", "<CMD>let @+ = expand('%:p')<CR>", { silent = t
 vim.keymap.set("n", "<leader>fg", "<CMD>Telescope live_grep<CR>", { silent = true })
 vim.keymap.set("n", "<leader>fa", "<CMD>Telescope live_grep search_dirs={'~/notes'}<CR>", { silent = true })
 
+vim.keymap.set("n", "<leader>q", "<CMD>e ~/notes/index.md<CR>", { silent = true })
 vim.keymap.set("t", "<esc><esc>", "<C-\\><C-n>", { silent = true })
