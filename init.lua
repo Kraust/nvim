@@ -63,6 +63,10 @@ vim.o.signcolumn = "yes"
 vim.opt.equalalways = false
 vim.o.colorcolumn = "80"
 vim.o.undofile = true
+vim.o.backup = false
+vim.o.writebackup = false
+vim.o.swapfile = false
+vim.o.autoread = true
 vim.o.scrollback = 100000
 vim.opt.completeopt = { "menuone", "noinsert", "noselect" }
 vim.opt.shortmess:append "c"
@@ -241,8 +245,12 @@ vim.lsp.config("clangd", {
 
 vim.api.nvim_create_autocmd("PackChanged", {
     pattern = "*",
-    callback = function()
-        vim.cmd [[ TSUpdate ]]
+    callback = function(ev)
+        vim.notify(ev.data.spec.name .. " has been updated.")
+        if ev.data.spec.name == "nvim-treesitter"
+            and ev.data.spec.kind ~= "deleted" then
+            vim.cmd [[ TSUpdate ]]
+        end
     end,
 })
 
@@ -736,3 +744,12 @@ vim.keymap.set("n", "<leader>fa", "<CMD>Telescope live_grep search_dirs={'~/note
 vim.keymap.set("n", "<leader>q", "<CMD>e /mnt/storage/notes/index.md<CR>", { silent = true })
 vim.keymap.set("n", "<leader>Q", "<CMD>e /mnt/storage/notes/scratch.md<CR>", { silent = true })
 vim.keymap.set("t", "<esc><esc>", "<C-\\><C-n>", { silent = true })
+
+-- Autocmds.
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "markdown",
+    callback = function()
+        vim.opt_local.spell = true
+        vim.opt_local.spelllang = "en_us"
+    end,
+})
