@@ -17,7 +17,12 @@ vim.pack.add({
     -- CodeCompanion
     "https://github.com/olimorris/codecompanion.nvim",
     "https://github.com/ravitemer/codecompanion-history.nvim",
+    "https://github.com/franco-ruggeri/codecompanion-spinner.nvim",
+    "https://github.com/franco-ruggeri/codecompanion-lualine.nvim",
+    "https://github.com/e2r2fx/codecompanion-fast-apply.nvim.git",
     { src = "https://github.com/Kraust/codecompanion-gitlab.nvim", version = "next" },
+
+    -- Other
     "https://github.com/nvim-treesitter/nvim-treesitter",
     "https://github.com/tpope/vim-fugitive",
     "https://github.com/OXY2DEV/markview.nvim",
@@ -264,6 +269,7 @@ require("oil").setup({})
 require("codecompanion").setup({
     opts = {
         language = "English",
+        log_level = "INFO",
     },
     strategies = {
         chat = {
@@ -272,7 +278,7 @@ require("codecompanion").setup({
                 llm = function(adapter)
                     return "CodeCompanion (" .. adapter.formatted_name .. ")"
                 end,
-                user = "Me",
+                user = "Kraust",
             },
             keymaps = {
                 submit = {
@@ -310,6 +316,12 @@ require("codecompanion").setup({
     extensions = {
         history = {
             enabled = true,
+        },
+        fast_apply = {
+            enabled = true,
+            opts = {
+                adapter = "gitlab_duo",
+            },
         },
     },
 })
@@ -443,15 +455,15 @@ vim.keymap.set("n", "<leader>g", "<CMD>Gedit :<CR>", { silent = true })
 vim.keymap.set("n", "<leader>ff", "<CMD>Telescope find_files<CR>", { silent = true })
 vim.keymap.set("n", "dd", "\"_dd", { silent = true })
 vim.keymap.set("n", "<leader>s", "<CMD>source ~/.config/nvim/session.vim<CR>", { silent = true })
-vim.keymap.set("n", "<leader>c", "<CMD>let @+ = expand('%:p')<CR>", { silent = true })
+vim.keymap.set("n", "<leader>c", "<CMD>CodeCompanionChat<CR>", { silent = true })
+vim.keymap.set("n", "<leader>v", "<CMD>let @+ = expand('%:p')<CR>", { silent = true })
+vim.keymap.set("t", "<esc><esc>", "<C-\\><C-n>", { silent = true })
 
 -- Telescope
 vim.keymap.set("n", "<leader>fg", "<CMD>Telescope live_grep<CR>", { silent = true })
 vim.keymap.set("n", "<leader>fa", "<CMD>Telescope live_grep search_dirs={'~/notes'}<CR>", { silent = true })
-
 vim.keymap.set("n", "<leader>q", "<CMD>e /mnt/storage/notes/index.md<CR>", { silent = true })
 vim.keymap.set("n", "<leader>Q", "<CMD>e /mnt/storage/notes/scratch.md<CR>", { silent = true })
-vim.keymap.set("t", "<esc><esc>", "<C-\\><C-n>", { silent = true })
 
 -- Autocmds.
 vim.api.nvim_create_autocmd("FileType", {
