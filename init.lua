@@ -37,10 +37,16 @@ vim.pack.add({
     "https://github.com/rachartier/tiny-inline-diagnostic.nvim",
     "https://github.com/brianaung/compl.nvim",
     "https://github.com/alex-popov-tech/store.nvim",
-    "https://gitlab.com/gitlab-org/editor-extensions/gitlab.vim.git",
+    -- "https://gitlab.com/gitlab-org/editor-extensions/gitlab.vim.git",
+    "https://github.com/Mitch1000/backpack.nvim",
 
     -- Colorscheme
     "https://github.com/vague2k/vague.nvim",
+}, {
+    confirm = false,
+})
+vim.pack.update({}, {
+    force = true,
 })
 
 vim.g.mapleader = " "
@@ -73,6 +79,8 @@ vim.opt.completeopt = { "menuone", "noinsert", "noselect" }
 vim.opt.shortmess:append "c"
 vim.opt.foldlevel = 99
 vim.o.list = true
+vim.o.showmode = false
+vim.o.showcmd = false
 vim.opt.listchars = {
     tab = "» ",
     trail = "•",
@@ -153,10 +161,25 @@ require('lualine').setup({
     extensions = {}
 })
 
-require("vague").setup({
+require("backpack").setup({
+    undercurl = true,
+    commentStyle = { italic = true },
+    compile = true,
+    functionStyle = {},
+    keywordStyle = { bold = true },
+    statementStyle = { bold = true },
+    returnStyle = { italic = false, bold = true },
+    typeStyle = {},
     transparent = true,
+    dimInactive = false,
+    terminalColors = true,
+    colors = { theme = { dark = {}, light = {} }, palette = {} },
+    contrast = "extreme", -- medium, high, extreme
+    overrides = function()
+        return {}
+    end,
 });
-vim.cmd [[colorscheme vague]]
+vim.cmd [[colorscheme backpack]]
 
 require("nvim-treesitter.configs").setup({
     ensure_installed = {},
@@ -177,8 +200,6 @@ local language_servers = {
     "neocmake",
     "docker_compose_language_service",
     "dockerls",
-    "groovyls",
-    "java_language_server",
     "jsonls",
     "marksman",
     "templ",
