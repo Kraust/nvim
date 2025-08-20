@@ -37,7 +37,6 @@ vim.pack.add({
     "https://github.com/rachartier/tiny-inline-diagnostic.nvim",
     "https://github.com/brianaung/compl.nvim",
     "https://github.com/alex-popov-tech/store.nvim",
-    -- "https://gitlab.com/gitlab-org/editor-extensions/gitlab.vim.git",
     "https://github.com/Mitch1000/backpack.nvim",
 
     -- Colorscheme
@@ -379,61 +378,6 @@ require("tiny-inline-diagnostic").setup({
         overflow = {
             mode = "wrap",
             padding = 0,
-        },
-    },
-})
-
-require('gitlab').setup({
-    statusline = {
-        enabled = true
-    },
-    code_suggestions = {
-        -- For the full list of default languages, see the 'auto_filetypes' array in
-        -- https://gitlab.com/gitlab-org/editor-extensions/gitlab.vim/-/blob/main/lua/gitlab/config/defaults.lua
-        auto_filetypes = {
-            'c',               -- C
-            'cpp',             -- C++
-            'csharp',          -- C#
-            'go',              -- Golang
-            'java',            -- Java
-            'javascript',      -- JavaScript
-            'javascriptreact', -- JavaScript React
-            'kotlin',          -- Kotlin
-            'markdown',        -- Markdown
-            'objective-c',     -- Objective-C
-            'objective-cpp',   -- Objective-C++
-            'php',             -- PHP
-            'python',          -- Python
-            'ruby',            -- Ruby
-            'rust',            -- Rust
-            'scala',           -- Scala
-            'sql',             -- SQL
-            'swift',           -- Swift
-            'terraform',       -- Terraform
-            'typescript',      -- TypeScript
-            'typescriptreact', -- TypeScript React
-            'sh',              -- Shell scripts
-            'html',            -- HTML
-            'css',             -- CSS
-        },
-        lsp_binary_path = 'node',
-        ghost_text = {
-            enabled = true,
-            toggle_enabled = nil,
-            accept_suggestion = "<leader><Tab>",
-            clear_suggestions = "<leader><S-Tab>",
-            stream = true,
-        },
-    },
-    language_server = {
-        workspace_settings = {
-            codeCompletion = {
-                enableSecretRedaction = true,
-            },
-            telemetry = {
-                enabled = false,
-                trackingUrl = nil,
-            },
         },
     },
 })
