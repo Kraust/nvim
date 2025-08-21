@@ -37,16 +37,14 @@ vim.pack.add({
     "https://github.com/rachartier/tiny-inline-diagnostic.nvim",
     "https://github.com/brianaung/compl.nvim",
     "https://github.com/alex-popov-tech/store.nvim",
-    "https://gitlab.com/gitlab-org/editor-extensions/gitlab.vim.git",
+    {
+        src = "https://gitlab.com/gitlab-org/editor-extensions/gitlab.vim",
+        version = "145-support-duo-workflow-in-neovim-using-browser",
+    },
 
     -- Colorscheme
     "https://github.com/vague2k/vague.nvim",
-    "https://github.com/Mitch1000/backpack.nvim",
-}, {
-    confirm = false,
-})
-vim.pack.update({}, {
-    force = true,
+    "https://github.com/scottmckendry/cyberdream.nvim",
 })
 
 vim.g.mapleader = " "
@@ -161,25 +159,17 @@ require('lualine').setup({
     extensions = {}
 })
 
-require("backpack").setup({
-    undercurl = true,
-    commentStyle = { italic = true },
-    compile = true,
-    functionStyle = {},
-    keywordStyle = { bold = true },
-    statementStyle = { bold = true },
-    returnStyle = { italic = false, bold = true },
-    typeStyle = {},
+require("cyberdream").setup({
+    variant = "auto",
     transparent = true,
-    dimInactive = false,
-    terminalColors = true,
-    colors = { theme = { dark = {}, light = {} }, palette = {} },
-    contrast = "extreme", -- medium, high, extreme
-    overrides = function()
-        return {}
-    end,
+    saturation = 1,
+    italic_comments = true,
+    hide_fillchars = false,
+    borderless_pickers = true,
+    terminal_colors = true,
+    cache = false,
 });
-vim.cmd [[colorscheme backpack]]
+vim.cmd [[colorscheme cyberdream]]
 
 require("nvim-treesitter.configs").setup({
     ensure_installed = {},
@@ -384,6 +374,9 @@ require("tiny-inline-diagnostic").setup({
 })
 
 require('gitlab').setup({
+    duo_workflow = {
+        enabled = true,
+    },
     statusline = {
         enabled = true
     },
