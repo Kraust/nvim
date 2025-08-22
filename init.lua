@@ -37,10 +37,8 @@ vim.pack.add({
     "https://github.com/rachartier/tiny-inline-diagnostic.nvim",
     "https://github.com/brianaung/compl.nvim",
     "https://github.com/alex-popov-tech/store.nvim",
-    {
-        src = "https://gitlab.com/gitlab-org/editor-extensions/gitlab.vim",
-        version = "145-support-duo-workflow-in-neovim-using-browser",
-    },
+    "https://gitlab.com/gitlab-org/editor-extensions/gitlab.vim",
+    "https://github.com/ravitemer/mcphub.nvim",
 
     -- Colorscheme
     "https://github.com/vague2k/vague.nvim",
@@ -262,6 +260,10 @@ vim.api.nvim_create_autocmd("PackChanged", {
             and ev.data.spec.kind ~= "deleted" then
             vim.cmd [[ TSUpdate ]]
         end
+        if ev.data.spec.name == "mcphub.nvim"
+            and ev.data.spec.kind ~= "deleted" then
+            vim.cmd('!npm install -g mcp-hub@latest')
+        end
     end,
 })
 
@@ -332,6 +334,14 @@ require("codecompanion").setup({
             enabled = true,
             opts = {
                 adapter = "gitlab_duo",
+            },
+        },
+        mcphub = {
+            callback = "mcphub.extensions.codecompanion",
+            opts = {
+                make_vars = true,
+                make_slash_commands = true,
+                show_result_in_chat = true,
             },
         },
     },
@@ -448,6 +458,8 @@ require("compl").setup({
     }
 })
 
+require("mcphub").setup({})
+
 
 vim.keymap.set("i", "<CR>", function()
     if vim.fn.complete_info()["selected"] ~= -1 then return "<C-y>" end
@@ -467,7 +479,7 @@ end, { expr = true })
 
 vim.keymap.set("n", "<leader>t", "<CMD>terminal<CR>", { silent = true })
 vim.keymap.set("n", "<leader>g", "<CMD>Gedit :<CR>", { silent = true })
-vim.keymap.set("n", "<leader>ff", "<CMD>Telescope find_files<CR>", { silent = true })
+vim.keymap.set("n", "<leader>ff", "<CMD>Telescope find_files search_dirs={'~/'}<CR>", { silent = true })
 vim.keymap.set("n", "dd", "\"_dd", { silent = true })
 vim.keymap.set("n", "<leader>s", "<CMD>source ~/.config/nvim/session.vim<CR>", { silent = true })
 vim.keymap.set("n", "<leader>c", "<CMD>CodeCompanionChat<CR>", { silent = true })
