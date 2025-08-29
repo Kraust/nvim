@@ -43,13 +43,16 @@ vim.pack.add({
     -- Colorscheme
     "https://github.com/vague2k/vague.nvim",
     "https://github.com/scottmckendry/cyberdream.nvim",
+    "https://github.com/Koalhack/darcubox-nvim",
+    "https://github.com/zootedb0t/citruszest.nvim",
 })
 
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
 
-vim.o.guifont = "IosevkaTermSlab NF,Noto Color Emoji:h8"
+--vim.o.guifont = "IosevkaTermSlab NF,Noto Color Emoji:h12"
+vim.o.guifont = "Hack Nerd Font,Noto Color Emoji:h12"
 vim.o.termguicolors = true
 vim.o.linespace = 0
 vim.o.wrap = false
@@ -85,21 +88,30 @@ vim.opt.listchars = {
 }
 
 
-vim.g.neovide_scale_factor = 1.0
-vim.g.neovide_padding_top = 0
-vim.g.neovide_padding_bottom = 0
-vim.g.neovide_padding_right = 0
-vim.g.neovide_padding_left = 0
-vim.g.neovide_opacity = 0.5
-vim.g.neovide_floating_shadow = false
-vim.g.neovide_position_animation_length = 0
-vim.g.neovide_scroll_animation_length = 0
-vim.g.neovide_scroll_animation_far_lines = 0
-vim.g.neovide_remember_window_size = true
-vim.g.neovide_cursor_animation_length = 0
-vim.g.neovide_cursor_short_animation_length = 0
-vim.g.neovide_cursor_trail_size = 0
-vim.g.neovide_cursor_vfx_mode = ""
+if vim.g.neovide then
+    vim.o.guifont = "Hack Nerd Font,Noto Color Emoji:h8"
+
+    vim.g.neovide_scale_factor = 1.0
+    vim.g.neovide_padding_top = 0
+    vim.g.neovide_padding_bottom = 0
+    vim.g.neovide_padding_right = 0
+    vim.g.neovide_padding_left = 0
+    vim.g.neovide_opacity = 0.5
+    vim.g.neovide_floating_shadow = false
+    vim.g.neovide_position_animation_length = 0
+    vim.g.neovide_scroll_animation_length = 0
+    vim.g.neovide_scroll_animation_far_lines = 0
+    vim.g.neovide_remember_window_size = true
+    vim.g.neovide_cursor_animation_length = 0
+    vim.g.neovide_cursor_short_animation_length = 0
+    vim.g.neovide_cursor_trail_size = 0
+    vim.g.neovide_cursor_vfx_mode = ""
+else
+    vim.o.guifont = "Hack Nerd Font,Noto Color Emoji:h12"
+end
+
+vim.o.winhighlight = ""
+
 
 
 require('lualine').setup({
@@ -157,17 +169,15 @@ require('lualine').setup({
     extensions = {}
 })
 
-require("cyberdream").setup({
-    variant = "auto",
-    transparent = true,
-    saturation = 1,
-    italic_comments = true,
-    hide_fillchars = false,
-    borderless_pickers = true,
-    terminal_colors = true,
-    cache = false,
-});
-vim.cmd [[colorscheme cyberdream]]
+
+require("citruszest").setup({
+    option = {
+        transparent = true,
+        bold = true,
+        italic = true,
+    },
+})
+vim.cmd [[colorscheme citruszest]]
 
 require("nvim-treesitter.configs").setup({
     ensure_installed = {},
@@ -192,6 +202,7 @@ local language_servers = {
     "marksman",
     "templ",
     "yamlls",
+    "html",
 }
 
 
@@ -200,11 +211,19 @@ require("mason-lspconfig").setup({
     automatic_enable = language_servers,
     ensure_installed = language_servers,
 })
+require("mason-null-ls").setup({
+    ensure_installed = {
+        "shfmt",
+        "biome",
+    },
+})
+
 
 local null_ls = require("null-ls")
 null_ls.setup({
     sources = {
-        null_ls.builtins.formatting.shfmt
+        null_ls.builtins.formatting.shfmt,
+        null_ls.builtins.formatting.biome,
     }
 })
 
