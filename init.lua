@@ -199,6 +199,7 @@ local language_servers = {
     "templ",
     "yamlls",
     "html",
+    "quick_lint_js",
 }
 
 
