@@ -49,12 +49,10 @@ vim.pack.add({
 
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
-vim.g.clipboard = 'osc52'
 
 
 --vim.o.guifont = "IosevkaTermSlab NF,Noto Color Emoji:h12"
 vim.o.guifont = "Hack Nerd Font,Noto Color Emoji:h12"
-
 vim.o.termguicolors = true
 vim.o.linespace = 0
 vim.o.wrap = false
@@ -66,8 +64,9 @@ vim.o.splitbelow = true
 vim.o.splitright = true
 vim.o.shiftwidth = 4
 vim.o.tabstop = 4
+vim.o.clipboard = "unnamedplus"
 vim.o.signcolumn = "yes"
-vim.o.equalalways = false
+vim.opt.equalalways = false
 vim.o.colorcolumn = "80"
 vim.o.undofile = true
 vim.o.backup = false
@@ -77,7 +76,7 @@ vim.o.autoread = true
 vim.o.scrollback = 100000
 vim.opt.completeopt = { "menuone", "noinsert", "noselect" }
 vim.opt.shortmess:append "c"
-vim.o.foldlevel = 99
+vim.opt.foldlevel = 99
 vim.o.list = true
 vim.o.showmode = false
 vim.o.showcmd = false
@@ -91,6 +90,7 @@ vim.opt.listchars = {
 
 if vim.g.neovide then
     vim.o.guifont = "Hack Nerd Font,Noto Color Emoji:h8"
+
     vim.g.neovide_scale_factor = 1.0
     vim.g.neovide_padding_top = 0
     vim.g.neovide_padding_bottom = 0
