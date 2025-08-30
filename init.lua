@@ -170,14 +170,10 @@ require('lualine').setup({
 })
 
 
-require("citruszest").setup({
-    option = {
-        transparent = true,
-        bold = true,
-        italic = true,
-    },
+require("vague").setup({
+    transparent = true,
 })
-vim.cmd [[colorscheme citruszest]]
+vim.cmd [[colorscheme vague]]
 
 require("nvim-treesitter.configs").setup({
     ensure_installed = {},
