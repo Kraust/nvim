@@ -15,16 +15,19 @@ vim.pack.add({
     "https://github.com/jay-babu/mason-null-ls.nvim",
 
     -- CodeCompanion
-    { src = "/home/kraust/git/codecompanion.nvim",        version = "main" },
+    { src = "/home/kraust/git/codecompanion.nvim",          version = "main" },
     "https://github.com/ravitemer/codecompanion-history.nvim",
     "https://github.com/franco-ruggeri/codecompanion-spinner.nvim",
     "https://github.com/franco-ruggeri/codecompanion-lualine.nvim",
     "https://github.com/e2r2fx/codecompanion-fast-apply.nvim.git",
     "https://github.com/Davidyz/VectorCode",
-    { src = "/home/kraust/git/codecompanion-gitlab.nvim", version = "next" },
+    { src = "/home/kraust/git/codecompanion-gitlab.nvim",   version = "next" },
 
-    -- Other
-    "https://github.com/nvim-treesitter/nvim-treesitter",
+    -- Treesitter.
+    { src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "master" },
+    "https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
+    "https://github.com/nvim-treesitter/nvim-treesitter-context",
+
     "https://github.com/tpope/vim-fugitive",
     "https://github.com/OXY2DEV/markview.nvim",
     "https://github.com/ojroques/nvim-bufdel",
@@ -43,6 +46,7 @@ vim.pack.add({
         version = "145-support-duo-workflow-in-neovim-using-browser",
     },
     "https://github.com/ravitemer/mcphub.nvim",
+    "https://github.com/fei6409/log-highlight.nvim",
 
     -- Colorscheme
     "https://github.com/vague2k/vague.nvim",
@@ -210,7 +214,22 @@ require("nvim-treesitter.configs").setup({
     ignore_install = { "ipkg" },
     highlight = {
         enable = true,
+    },
+    incremental_selection = {
+        enable = true,
+    },
+    indent = {
+        enable = true
+    },
+    textobjects = {
+        select = {
+            enable = true,
+        }
     }
+})
+
+require("treesitter-context").setup({
+    enable = true,
 })
 
 local language_servers = {
@@ -568,6 +587,9 @@ require("compl").setup({
 })
 
 require("mcphub").setup({})
+
+
+require("log-highlight").setup({})
 
 
 vim.keymap.set("i", "<CR>", function()
