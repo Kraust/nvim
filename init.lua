@@ -15,12 +15,13 @@ vim.pack.add({
     "https://github.com/jay-babu/mason-null-ls.nvim",
 
     -- CodeCompanion
-    "https://github.com/olimorris/codecompanion.nvim",
+    { src = "/home/kraust/git/codecompanion.nvim",        version = "main" },
     "https://github.com/ravitemer/codecompanion-history.nvim",
     "https://github.com/franco-ruggeri/codecompanion-spinner.nvim",
     "https://github.com/franco-ruggeri/codecompanion-lualine.nvim",
     "https://github.com/e2r2fx/codecompanion-fast-apply.nvim.git",
-    { src = "https://github.com/Kraust/codecompanion-gitlab.nvim", version = "next" },
+    "https://github.com/Davidyz/VectorCode",
+    { src = "/home/kraust/git/codecompanion-gitlab.nvim", version = "next" },
 
     -- Other
     "https://github.com/nvim-treesitter/nvim-treesitter",
@@ -37,7 +38,10 @@ vim.pack.add({
     "https://github.com/rachartier/tiny-inline-diagnostic.nvim",
     "https://github.com/brianaung/compl.nvim",
     "https://github.com/alex-popov-tech/store.nvim",
-    "https://gitlab.com/gitlab-org/editor-extensions/gitlab.vim",
+    {
+        src = "/home/kraust/git/gitlab.vim",
+        version = "145-support-duo-workflow-in-neovim-using-browser",
+    },
     "https://github.com/ravitemer/mcphub.nvim",
 
     -- Colorscheme
@@ -52,7 +56,7 @@ vim.g.maplocalleader = "\\"
 
 
 --vim.o.guifont = "IosevkaTermSlab NF,Noto Color Emoji:h12"
-vim.o.guifont = "Hack Nerd Font,Noto Color Emoji:h12"
+vim.o.guifont = "Hack Nerd Font,Noto Color Emoji:h10"
 vim.o.termguicolors = true
 vim.o.linespace = 0
 vim.o.wrap = false
@@ -86,7 +90,10 @@ vim.opt.listchars = {
     space = "·",
     nbsp = "%"
 }
-
+vim.opt.fillchars = {
+    vert = ' ',
+    eob = ' ',
+}
 
 if vim.g.neovide then
     vim.o.guifont = "Hack Nerd Font,Noto Color Emoji:h8"
@@ -107,12 +114,10 @@ if vim.g.neovide then
     vim.g.neovide_cursor_trail_size = 0
     vim.g.neovide_cursor_vfx_mode = ""
 else
-    vim.o.guifont = "Hack Nerd Font,Noto Color Emoji:h12"
+    vim.o.guifont = "Hack Nerd Font,Noto Color Emoji:h10"
 end
 
 vim.o.winhighlight = ""
-
-
 
 require('lualine').setup({
     options = {
@@ -172,6 +177,31 @@ require('lualine').setup({
 
 require("vague").setup({
     transparent = true,
+    colors = {
+        bg = "#141415",
+        inactiveBg = "#1c1c24",
+        fg = "#ffb3ba",
+        floatBorder = "#878787",
+        line = "#3a3545",
+        comment = "#5f756a",
+        builtin = "#4dd4a8",
+        func = "#c48282",
+        string = "#ff7a85",
+        number = "#2b7fff",
+        property = "#b8a3ff",
+        constant = "#9d8fff",
+        parameter = "#d478d4",
+        visual = "#333738",
+        error = "#d8647e",
+        warning = "#4da6ff",
+        hint = "#5c8aff",
+        operator = "#90a0b5",
+        keyword = "#4a8aff",
+        type = "#5cb4d4",
+        search = "#405065",
+        plus = "#5dd442",
+        delta = "#4da6ff",
+    },
 })
 vim.cmd [[colorscheme vague]]
 
@@ -199,7 +229,8 @@ local language_servers = {
     "templ",
     "yamlls",
     "html",
-    "quick_lint_js",
+    "denols",
+    "vectorcode_server",
 }
 
 
@@ -211,7 +242,6 @@ require("mason-lspconfig").setup({
 require("mason-null-ls").setup({
     ensure_installed = {
         "shfmt",
-        "biome",
     },
 })
 
@@ -220,7 +250,6 @@ local null_ls = require("null-ls")
 null_ls.setup({
     sources = {
         null_ls.builtins.formatting.shfmt,
-        null_ls.builtins.formatting.biome,
     }
 })
 
@@ -291,7 +320,6 @@ require("markview").setup({
 })
 
 require("fidget").setup({})
-
 require("search").setup({})
 require("oil").setup({})
 
@@ -318,6 +346,9 @@ require("codecompanion").setup({
                     end,
                 },
             },
+            features = {
+                tokens = false,
+            }
         },
         inline = {
             adapter = "gitlab_duo",
@@ -327,14 +358,48 @@ require("codecompanion").setup({
         }
     },
     adapters = {
-        gitlab_duo = function()
-            return require("codecompanion-gitlab.adapters.gitlab_duo")
-        end,
+        http = {
+            gitlab_duo = function()
+                return require("codecompanion-gitlab.adapters.gitlab_duo")
+            end,
+            localllama = function()
+                return require("codecompanion.adapters").extend("ollama", {
+                    name = "localllama",
+                    opts = {
+                        vision = true,
+                        stream = true,
+                    },
+                    schema = {
+                        model = {
+                            default = "hf.co/unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF:Q6_K_XL",
+                        },
+                        num_ctx = {
+                            default = 16384,
+                        },
+                        think = {
+                            default = false,
+                        },
+                        keep_alive = {
+                            default = "24h",
+                        },
+                    },
+                })
+            end,
+            llamacpp = function()
+                return require("codecompanion.adapters").extend("openai_compatible", {
+                    name = "llamacpp",
+                    opts = {
+                        vision = true,
+                        stream = true,
+                    },
+                })
+            end,
+        },
     },
     display = {
         diff = {
             enabled = true,
-            layout = "horizontall",
+            layout = "horizontal",
         },
         chat = {
             window = {
@@ -360,8 +425,64 @@ require("codecompanion").setup({
                 show_result_in_chat = true,
             },
         },
+        vectorcode = {
+            opts = {
+                tool_group = {
+                    enabled = true,
+                    extras = {},
+                    collapse = false,
+                },
+                tool_opts = {
+                    ["*"] = {},
+                    ls = {},
+                    vectorise = {},
+                    query = {
+                        max_num = { chunk = -1, document = -1 },
+                        default_num = { chunk = 50, document = 10 },
+                        include_stderr = false,
+                        use_lsp = true,
+                        no_duplicate = true,
+                        chunk_mode = false,
+                        summarise = {
+                            enabled = true,
+                            adapter = nil,
+                            query_augmented = true,
+                        }
+                    },
+                    files_ls = {},
+                    files_rm = {}
+                }
+            },
+        },
     },
 })
+
+require("vectorcode").setup(
+    {
+        cli_cmds = {
+            vectorcode = "vectorcode",
+        },
+        async_opts = {
+            debounce = 10,
+            events = { "BufWritePost", "InsertEnter", "BufReadPost" },
+            exclude_this = true,
+            n_query = 1,
+            notify = false,
+            query_cb = require("vectorcode.utils").make_surrounding_lines_cb(-1),
+            run_on_register = false,
+        },
+        async_backend = "lsp",
+        exclude_this = true,
+        n_query = 1,
+        notify = true,
+        timeout_ms = 5000,
+        on_setup = {
+            update = true,
+            lsp = true,
+        },
+        sync_log_env_var = false,
+    }
+)
 
 require("project_nvim").setup({
     show_hidden = true,
@@ -407,34 +528,6 @@ require('gitlab').setup({
         enabled = true
     },
     code_suggestions = {
-        -- For the full list of default languages, see the 'auto_filetypes' array in
-        -- https://gitlab.com/gitlab-org/editor-extensions/gitlab.vim/-/blob/main/lua/gitlab/config/defaults.lua
-        auto_filetypes = {
-            'c',               -- C
-            'cpp',             -- C++
-            'csharp',          -- C#
-            'go',              -- Golang
-            'java',            -- Java
-            'javascript',      -- JavaScript
-            'javascriptreact', -- JavaScript React
-            'kotlin',          -- Kotlin
-            'markdown',        -- Markdown
-            'objective-c',     -- Objective-C
-            'objective-cpp',   -- Objective-C++
-            'php',             -- PHP
-            'python',          -- Python
-            'ruby',            -- Ruby
-            'rust',            -- Rust
-            'scala',           -- Scala
-            'sql',             -- SQL
-            'swift',           -- Swift
-            'terraform',       -- Terraform
-            'typescript',      -- TypeScript
-            'typescriptreact', -- TypeScript React
-            'sh',              -- Shell scripts
-            'html',            -- HTML
-            'css',             -- CSS
-        },
         lsp_binary_path = 'node',
         ghost_text = {
             enabled = true,
