@@ -20,7 +20,6 @@ vim.pack.add({
     "https://github.com/franco-ruggeri/codecompanion-spinner.nvim",
     "https://github.com/franco-ruggeri/codecompanion-lualine.nvim",
     "https://github.com/e2r2fx/codecompanion-fast-apply.nvim.git",
-    "https://github.com/Davidyz/VectorCode",
     { src = "https://github.com/Kraust/codecompanion-gitlab.nvim", version = "main" },
 
     -- Treesitter.
@@ -249,7 +248,6 @@ local language_servers = {
     "yamlls",
     "html",
     "denols",
-    "vectorcode_server",
 }
 
 
@@ -429,64 +427,8 @@ require("codecompanion").setup({
                 show_result_in_chat = true,
             },
         },
-        vectorcode = {
-            opts = {
-                tool_group = {
-                    enabled = true,
-                    extras = {},
-                    collapse = false,
-                },
-                tool_opts = {
-                    ["*"] = {},
-                    ls = {},
-                    vectorise = {},
-                    query = {
-                        max_num = { chunk = -1, document = -1 },
-                        default_num = { chunk = 50, document = 10 },
-                        include_stderr = false,
-                        use_lsp = true,
-                        no_duplicate = true,
-                        chunk_mode = false,
-                        summarise = {
-                            enabled = true,
-                            adapter = nil,
-                            query_augmented = true,
-                        }
-                    },
-                    files_ls = {},
-                    files_rm = {}
-                }
-            },
-        },
     },
 })
-
-require("vectorcode").setup(
-    {
-        cli_cmds = {
-            vectorcode = "vectorcode",
-        },
-        async_opts = {
-            debounce = 10,
-            events = { "BufWritePost", "InsertEnter", "BufReadPost" },
-            exclude_this = true,
-            n_query = 1,
-            notify = false,
-            query_cb = require("vectorcode.utils").make_surrounding_lines_cb(-1),
-            run_on_register = false,
-        },
-        async_backend = "lsp",
-        exclude_this = true,
-        n_query = 1,
-        notify = true,
-        timeout_ms = 5000,
-        on_setup = {
-            update = true,
-            lsp = true,
-        },
-        sync_log_env_var = false,
-    }
-)
 
 require("project_nvim").setup({
     show_hidden = true,
