@@ -15,16 +15,16 @@ vim.pack.add({
     "https://github.com/jay-babu/mason-null-ls.nvim",
 
     -- CodeCompanion
-    { src = "/home/kraust/git/codecompanion.nvim",          version = "main" },
+    { src = "https://github.com/olimorris/codecompanion.nvim",     version = "main" },
     "https://github.com/ravitemer/codecompanion-history.nvim",
     "https://github.com/franco-ruggeri/codecompanion-spinner.nvim",
     "https://github.com/franco-ruggeri/codecompanion-lualine.nvim",
     "https://github.com/e2r2fx/codecompanion-fast-apply.nvim.git",
     "https://github.com/Davidyz/VectorCode",
-    { src = "/home/kraust/git/codecompanion-gitlab.nvim",   version = "next" },
+    { src = "https://github.com/Kraust/codecompanion-gitlab.nvim", version = "main" },
 
     -- Treesitter.
-    { src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "master" },
+    { src = "https://github.com/nvim-treesitter/nvim-treesitter",  version = "master" },
     "https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
     "https://github.com/nvim-treesitter/nvim-treesitter-context",
 
@@ -378,33 +378,13 @@ require("codecompanion").setup({
     },
     adapters = {
         http = {
+            opts = {
+                show_defaults = false,
+            },
             gitlab_duo = function()
                 return require("codecompanion-gitlab.adapters.gitlab_duo")
             end,
-            localllama = function()
-                return require("codecompanion.adapters").extend("ollama", {
-                    name = "localllama",
-                    opts = {
-                        vision = true,
-                        stream = true,
-                    },
-                    schema = {
-                        model = {
-                            default = "hf.co/unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF:Q6_K_XL",
-                        },
-                        num_ctx = {
-                            default = 16384,
-                        },
-                        think = {
-                            default = false,
-                        },
-                        keep_alive = {
-                            default = "24h",
-                        },
-                    },
-                })
-            end,
-            llamacpp = function()
+            llama_cpp = function()
                 return require("codecompanion.adapters").extend("openai_compatible", {
                     name = "llamacpp",
                     opts = {
@@ -414,6 +394,11 @@ require("codecompanion").setup({
                 })
             end,
         },
+        acp = {
+            opts = {
+                show_defaults = false,
+            },
+        }
     },
     display = {
         diff = {
